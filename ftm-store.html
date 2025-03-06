@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f8f8f8">
+    <title>Fᴛᴍ Sᴛᴏʀᴇ - Download &amp; Upload Apps</title>
+    <meta name="description" content="Fᴛᴍ Sᴛᴏʀᴇ - Download and upload apps with ease. Admins can manage app listings.">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&amp;display=swap" rel="stylesheet">
+
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to right, red, green, blue);
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            color: white;
+        }
+
+        .header {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            color: black;
+        }
+
+        .input-box, select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        .login-btn, .upload-btn {
+            background: #3E8DA8;
+            color: white;
+            padding: 10px;
+            border: none;
+            width: 100%;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .login-btn:hover, .upload-btn:hover {
+            background: #2b6b86;
+        }
+
+        .footer {
+            margin-top: 20px;
+            font-size: 14px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 10px;
+        }
+
+        .footer a {
+            color: #FFD700;
+            text-decoration: none;
+        }
+
+        .upload-container, .user-container {
+            display: none;
+        }
+
+        .app-item {
+            background: #fff;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            color: black;
+            text-align: left;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <div class="header">Fᴛᴍ Sᴛᴏʀᴇ - Download &amp; Upload Apps</div>
+
+    <!-- Home Page for Normal Users -->
+    <div class="container user-container" id="user-container">
+        <h2>Welcome to Fᴛᴍ Sᴛᴏʀᴇ</h2>
+        <p>Download your favorite apps safely and securely.</p>
+
+        <h3>Available Apps</h3>
+        <div id="app-list">
+            <div class="app-item">
+                <h4>Sʜɪʙᴏʟᴛᴢ ᴛᴠ</h4>
+                <p>Watch live TV and streaming content for free.</p>
+                <strong>Category:</strong> Entertainment<br>
+                <a href="#" class="login-btn">Download</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Login Form -->
+    <div class="container" id="login-container">
+        <h2>Admin Login</h2>
+        <input type="text" id="username" class="input-box" placeholder="Username">
+        <input type="password" id="password" class="input-box" placeholder="Password">
+        <button class="login-btn" onclick="checkLogin()">Sign In</button>
+    </div>
+
+    <!-- Upload Section (Only visible for Admin) -->
+    <div class="container upload-container" id="upload-container">
+        <h2>Upload a New App</h2>
+        <input type="text" id="app-name" class="input-box" placeholder="App Name">
+        <textarea id="app-description" class="input-box" placeholder="App Description"></textarea>
+        <select id="app-category" class="input-box">
+            <option value="Entertainment">Entertainment</option>
+            <option value="Games">Games</option>
+            <option value="Productivity">Productivity</option>
+            <option value="Tools">Tools</option>
+        </select>
+        <input type="file" class="input-box" id="file-upload">
+        <button class="upload-btn" onclick="uploadApp()">Upload</button>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        © 2025 Fᴛᴍ Sᴛᴏʀᴇ | Created with ❤️ by <a href="https://t.me/ftmdeveloperz">Fᴛᴍ Dᴇᴠᴇʟᴏᴘᴇʀᴢ</a>
+    </div>
+
+    <script>
+        const correctUsername = "ftm2025";
+        const correctPassword = "ftm2025";
+
+        function checkLogin() {
+            let username = document.getElementById("username").value.trim();
+            let password = document.getElementById("password").value.trim();
+
+            if (username === correctUsername && password === correctPassword) {
+                alert("Login Successful!");
+                document.getElementById("login-container").style.display = "none";
+                document.getElementById("upload-container").style.display = "block";
+            } else {
+                alert("Invalid Username or Password! Please try again.");
+            }
+        }
+
+        document.getElementById("user-container").style.display = "block";
+
+        function uploadApp() {
+            let appName = document.getElementById("app-name").value;
+            let appDescription = document.getElementById("app-description").value;
+            let appCategory = document.getElementById("app-category").value;
+            let fileUpload = document.getElementById("file-upload").files[0];
+
+            if (!appName || !appDescription || !fileUpload) {
+                alert("Please fill in all fields and upload a file.");
+                return;
+            }
+
+            let appItem = document.createElement("div");
+            appItem.className = "app-item";
+            appItem.innerHTML = `
+                <h4>${appName}</h4>
+                <p>${appDescription}</p>
+                <strong>Category:</strong> ${appCategory}<br>
+                <a href="#" class="login-btn" download>Download</a>
+            `;
+
+            document.getElementById("app-list").appendChild(appItem);
+            alert("App uploaded successfully!");
+        }
+    </script>
+
+
+</body></html>
